@@ -1,8 +1,0 @@
-com\vw\apirest\api\controller\ApiUtil.class
-com\vw\apirest\api\dto\UserResponse.class
-com\vw\apirest\UserApiController.class
-com\vw\apirest\api\mapper\UserMapper.class
-com\vw\apirest\api\mapper\UserMapperImpl.class
-com\vw\apirest\api\dto\Consent.class
-com\vw\apirest\api\dto\UserRequest.class
-com\vw\apirest\api\controller\UsersApi.class
