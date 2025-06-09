@@ -1,0 +1,8 @@
+com\vw\common\Mediator.class
+com\vw\user\create\CreateUserHandler.class
+com\vw\common\Handler.class
+com\vw\user\create\CreateUserResponse.class
+com\vw\user\create\CreateUserRequest$CreateUserRequestBuilder.class
+com\vw\user\create\CreateUserResponse$CreateUserResponseBuilder.class
+com\vw\common\Request.class
+com\vw\user\create\CreateUserRequest.class

@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.vw</groupId>
+        <artifactId>preference-center-user</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>api-rest</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.vw</groupId>
+            <artifactId>application</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+<!--    <build>-->
+<!--        <sourceDirectory>src/main/java</sourceDirectory>-->
+
+<!--        <plugins>-->
+<!--            &lt;!&ndash; Plugin OpenAPI &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <version>7.5.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <inputSpec>${project.basedir}/src/main/resources/openapi-users.yaml</inputSpec>-->
+<!--                    <generatorName>spring</generatorName>-->
+<!--                    <apiPackage>com.vw.api.controller</apiPackage>-->
+<!--                    <modelPackage>com.vw.api.dto</modelPackage>-->
+<!--                    <invokerPackage>com.vw.api.invoker</invokerPackage>-->
+<!--                    <configOptions>-->
+<!--                        <interfaceOnly>true</interfaceOnly>-->
+<!--                        <useTags>true</useTags>-->
+<!--                        <jakarta>true</jakarta>-->
+<!--                        <apiUtilTemplate>false</apiUtilTemplate>-->
+<!--                    </configOptions>-->
+<!--                    <output>${project.build.directory}/generated-sources/openapi</output>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+<!--            &lt;!&ndash; 👉 Añadir el directorio generado como source &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>build-helper-maven-plugin</artifactId>-->
+<!--                <version>3.4.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>add-source</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>add-source</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <sources>-->
+<!--                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>-->
+<!--                            </sources>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+</project>
