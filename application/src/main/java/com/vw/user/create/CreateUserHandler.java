@@ -27,6 +27,8 @@ public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserR
 
         this.userRepository.save(userToSave);
 
+        // Producer sends the event ConsentUpdateEvent
+        
         return CreateUserResponse.builder()
                 .user(userToSave)
                 .build();
