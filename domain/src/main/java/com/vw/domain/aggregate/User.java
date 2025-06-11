@@ -1,6 +1,7 @@
 package com.vw.domain.aggregate;
 
 import com.vw.domain.entity.Consent;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Setter
+@Getter
 public class User {
     private String id;
     private String email;

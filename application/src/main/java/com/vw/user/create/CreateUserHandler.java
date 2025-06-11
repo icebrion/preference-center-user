@@ -3,13 +3,14 @@ package com.vw.user.create;
 import com.vw.common.Handler;
 import com.vw.domain.aggregate.User;
 import com.vw.domain.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserResponse> {
 
     private final UserRepository userRepository;

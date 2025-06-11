@@ -5,17 +5,20 @@ import com.vw.apirest.api.dto.UserResponse;
 import com.vw.domain.aggregate.User;
 import com.vw.domain.entity.Consent;
 import com.vw.user.create.CreateUserRequest;
-import com.vw.user.create.CreateUserResponse;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 public interface UserMapper {
-
     CreateUserRequest asCreateUserRequest(UserRequest dto);
 
-    List<Consent> asConsent(List<com.vw.apirest.api.dto.Consent> dto);
+    UserResponse asUserResponse(User user);
 
-    UserResponse asUserResponse(User dto);
+    List<Consent> asConsentDomainList(List<com.vw.apirest.api.dto.Consent> dto);
+
+    List<com.vw.apirest.api.dto.Consent> asConsentDtoList(List<Consent> dto);
+
+    List<UserResponse> asUserResponseList(Set<User> users);
 }
