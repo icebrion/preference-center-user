@@ -14,7 +14,7 @@ public class UpdatedUserDomainHandler {
     private final ProducerSender producerSender;
 
     public void handle(UpdatedUserDomainEvent event) {
-        producerSender.send(event);
+        producerSender.sendConsentUpdateEvent(event.getId(), event.getConsent());
     }
 }
 

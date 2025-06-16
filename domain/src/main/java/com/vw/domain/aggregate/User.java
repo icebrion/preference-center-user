@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class User extends Aggregate {
         }
         this.consents.addAll(consents);
 
-        this.registerEvent(new UpdatedUserDomainEvent(this));
+        consents.forEach(consent -> this.registerEvent(new UpdatedUserDomainEvent(this.id, consent)));
         return this;
     }
 }

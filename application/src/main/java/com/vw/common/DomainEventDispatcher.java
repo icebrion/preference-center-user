@@ -2,7 +2,6 @@ package com.vw.common;
 
 import com.vw.domain.events.UpdatedUserDomainEvent;
 import com.vw.notifications.user.UpdatedUserDomainHandler;
-import com.vw.user.create.CreateUserHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
