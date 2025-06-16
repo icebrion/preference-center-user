@@ -3,11 +3,7 @@ package com.vw.user.get;
 import com.vw.common.Handler;
 import com.vw.domain.aggregate.User;
 import com.vw.domain.repository.UserRepository;
-import com.vw.user.create.CreateUserRequest;
-import com.vw.user.create.CreateUserResponse;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;

@@ -1,12 +1,10 @@
-package com.vw.user.create;
+package com.vw.user.upsert;
 
 import com.vw.common.DomainEventDispatcher;
 import com.vw.common.Handler;
 import com.vw.domain.aggregate.User;
 import com.vw.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserResponse> {
+public class UpsertUserHandler implements Handler<UpsertUserRequest, UpsertUserResponse> {
 
     private final UserRepository userRepository;
 
@@ -22,14 +20,17 @@ public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserR
 
     @Override
     @Transactional
-    public CreateUserResponse handle(CreateUserRequest request) {
+    public UpsertUserResponse handle(UpsertUserRequest request) {
         User userToSave;
 
         Optional<User> userByEmail = this.userRepository.findUserByEmail(request.getEmail());
         if (userByEmail.isPresent()) {
             userToSave = userByEmail.get().addConsents(request.getConsents());
-        } else {
+        } else if (this.isValidEmail()) {
             userToSave = User.createUser(request.getEmail(), request.getConsents());
+        } else {
+            return UpsertUserResponse.builder()
+                    .build();
         }
 
         this.userRepository.save(userToSave);
@@ -37,9 +38,14 @@ public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserR
         domainEventDispatcher.dispatch(userToSave.getDomainEvents());
         userToSave.clearDomainEvents();
 
-        return CreateUserResponse.builder()
+        return UpsertUserResponse.builder()
                 .user(userToSave)
                 .build();
+    }
+
+    private boolean isValidEmail() {
+        // TODO validations
+        return true;
     }
 }
 

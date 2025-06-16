@@ -1,4 +1,4 @@
-package com.vw.user.create;
+package com.vw.user.upsert;
 
 import com.vw.common.Request;
 import com.vw.domain.entity.Consent;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class CreateUserRequest implements Request<CreateUserResponse> {
+public class UpsertUserRequest implements Request<UpsertUserResponse> {
     private String email;
     private List<Consent> consents;
 }

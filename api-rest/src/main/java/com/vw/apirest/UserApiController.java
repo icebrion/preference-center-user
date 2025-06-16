@@ -6,8 +6,8 @@ import com.vw.api.dto.UserRequest;
 import com.vw.api.dto.UserResponse;
 import com.vw.apirest.api.mapper.UserMapper;
 import com.vw.common.Mediator;
-import com.vw.user.create.CreateUserRequest;
-import com.vw.user.create.CreateUserResponse;
+import com.vw.user.upsert.UpsertUserRequest;
+import com.vw.user.upsert.UpsertUserResponse;
 import com.vw.user.delete.DeleteUserRequest;
 import com.vw.user.get.GetUserResponse;
 import com.vw.user.get.GetUsersRequest;
@@ -30,18 +30,23 @@ public class UserApiController implements UsersApi {
 
     @Override
     public ResponseEntity<UserResponse> upsertUser(UserRequest userRequest) {
-        CreateUserRequest request = this.userMapper.asCreateUserRequest(userRequest);
+        try {
+            UpsertUserRequest request = this.userMapper.asCreateUserRequest(userRequest);
+            UpsertUserResponse response = mediator.handle(request);
 
-        CreateUserResponse response = mediator.handle(request);
-        if (response.getUser() != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(this.userMapper.asUserResponse(response.getUser()));
+            if (response.getUser() != null) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(this.userMapper.asUserResponse(response.getUser()));
+            }
+
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-
-        return ResponseEntity.internalServerError().build();
     }
 
     @Override
     public ResponseEntity<List<UserResponse>> getAllUsers() {
+        try {
         GetUserResponse response = this.mediator.handle(GetUsersRequest.builder().build());
 
         List<UserResponse> userResponseList = new ArrayList<>();
@@ -50,10 +55,14 @@ public class UserApiController implements UsersApi {
         }
 
         return ResponseEntity.ok(userResponseList);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<UserResponse> getUser(String userId) {
+        try {
         GetUsersRequest request = GetUsersRequest.builder()
                 .userId(userId)
                 .build();
@@ -65,15 +74,22 @@ public class UserApiController implements UsersApi {
         }
 
         return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<Void> deleteUser(String userId) {
+        try {
         DeleteUserRequest request = DeleteUserRequest.builder()
                 .userId(userId)
                 .build();
         this.mediator.handle(request);
 
         return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

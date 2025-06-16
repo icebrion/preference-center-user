@@ -3,8 +3,6 @@ package com.vw.user.delete;
 import com.vw.common.Handler;
 import com.vw.domain.aggregate.User;
 import com.vw.domain.repository.UserRepository;
-import com.vw.user.create.CreateUserRequest;
-import com.vw.user.create.CreateUserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
