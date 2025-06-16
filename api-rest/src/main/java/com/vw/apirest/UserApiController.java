@@ -1,9 +1,9 @@
 package com.vw.apirest;
 
 
-import com.vw.apirest.api.controller.UsersApi;
-import com.vw.apirest.api.dto.UserRequest;
-import com.vw.apirest.api.dto.UserResponse;
+import com.vw.api.controller.UsersApi;
+import com.vw.api.dto.UserRequest;
+import com.vw.api.dto.UserResponse;
 import com.vw.apirest.api.mapper.UserMapper;
 import com.vw.common.Mediator;
 import com.vw.user.create.CreateUserRequest;

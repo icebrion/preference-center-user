@@ -72,60 +72,107 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.icebrion</groupId>
+            <artifactId>preference-center-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+
+
     </dependencies>
 
-<!--    <build>-->
-<!--        <sourceDirectory>src/main/java</sourceDirectory>-->
 
-<!--        <plugins>-->
-<!--            &lt;!&ndash; Plugin OpenAPI &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.openapitools</groupId>-->
-<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
-<!--                <version>7.5.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <inputSpec>${project.basedir}/src/main/resources/openapi-users.yaml</inputSpec>-->
-<!--                    <generatorName>spring</generatorName>-->
-<!--                    <apiPackage>com.vw.api.controller</apiPackage>-->
-<!--                    <modelPackage>com.vw.api.dto</modelPackage>-->
-<!--                    <invokerPackage>com.vw.api.invoker</invokerPackage>-->
-<!--                    <configOptions>-->
-<!--                        <interfaceOnly>true</interfaceOnly>-->
-<!--                        <useTags>true</useTags>-->
-<!--                        <jakarta>true</jakarta>-->
-<!--                        <apiUtilTemplate>false</apiUtilTemplate>-->
-<!--                    </configOptions>-->
-<!--                    <output>${project.build.directory}/generated-sources/openapi</output>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
 
-<!--            &lt;!&ndash; 👉 Añadir el directorio generado como source &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>build-helper-maven-plugin</artifactId>-->
-<!--                <version>3.4.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>add-source</id>-->
-<!--                        <phase>generate-sources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>add-source</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <sources>-->
-<!--                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>-->
-<!--                            </sources>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>unpack-openapi-yaml</id>
+                        <phase>generate-sources</phase>
+                        <goals><goal>unpack</goal></goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.icebrion</groupId>
+                                    <artifactId>preference-center-api</artifactId>
+                                    <version>v1.1.2</version>
+                                    <includes>**/openapi-users.yaml</includes>
+                                    <outputDirectory>${project.build.directory}/dependency</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.4.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-openapi</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <generatorName>spring</generatorName>
+                            <inputSpec>${project.build.directory}/dependency/openapi-users.yaml</inputSpec>
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+                            <apiPackage>com.vw.api.controller</apiPackage>
+                            <modelPackage>com.vw.api.dto</modelPackage>
+                            <invokerPackage>com.vw.api.invoker</invokerPackage>
+                            <jakarta>true</jakarta>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly> <!-- si quieres solo interfaces, no clases controller -->
+                                <useTags>true</useTags>
+                                <dateLibrary>java8</dateLibrary>
+                                <jakarta>true</jakarta>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
 </project>
