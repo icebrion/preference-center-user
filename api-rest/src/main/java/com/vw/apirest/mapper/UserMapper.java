@@ -1,4 +1,4 @@
-package com.vw.apirest.api.mapper;
+package com.vw.apirest.mapper;
 
 import com.vw.api.dto.UserRequest;
 import com.vw.api.dto.UserResponse;
@@ -17,8 +17,6 @@ public interface UserMapper {
     UserResponse asUserResponse(User user);
 
     List<Consent> asConsentDomainList(List<com.vw.api.dto.Consent> dto);
-
-    List<com.vw.api.dto.Consent> asConsentDtoList(List<Consent> dto);
 
     List<UserResponse> asUserResponseList(Set<User> users);
 }
