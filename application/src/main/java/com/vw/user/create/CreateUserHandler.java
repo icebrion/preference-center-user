@@ -1,11 +1,14 @@
 package com.vw.user.create;
 
+import com.vw.common.DomainEventDispatcher;
 import com.vw.common.Handler;
 import com.vw.domain.aggregate.User;
 import com.vw.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -15,7 +18,10 @@ public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserR
 
     private final UserRepository userRepository;
 
+    private final DomainEventDispatcher domainEventDispatcher;
+
     @Override
+    @Transactional
     public CreateUserResponse handle(CreateUserRequest request) {
         User userToSave;
 
@@ -28,7 +34,8 @@ public class CreateUserHandler implements Handler<CreateUserRequest, CreateUserR
 
         this.userRepository.save(userToSave);
 
-        // Producer sends the event ConsentUpdateEvent
+        domainEventDispatcher.dispatch(userToSave.getDomainEvents());
+        userToSave.clearDomainEvents();
 
         return CreateUserResponse.builder()
                 .user(userToSave)

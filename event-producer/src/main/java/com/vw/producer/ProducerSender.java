@@ -1,8 +1,12 @@
 package com.vw.producer;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class ProducerSender {
-    // Class for sending the events (ConsentUpdateEvent)
+
+    public void send(Object event) {}
 }
